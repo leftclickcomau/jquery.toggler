@@ -5,8 +5,9 @@
  * a list into a set of elements that are clicked to toggle.  The underlying
  * checkboxes are hidden but updated by the user interactions.
  * 
- * Released under the GNU General Public License (GPL).
- * Commercial licenses available.
+ * (c) 2010 Leftclick.com.au
+ * Licensed under the GNU General Public License (GPL).
+ * Commercial licenses also available.
  */
 
 ;(function($) {
