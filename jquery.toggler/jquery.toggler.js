@@ -4,6 +4,9 @@
  * Progressive enhancement to convert a set of checkboxes or radio buttons in
  * a list into a set of elements that are clicked to toggle.  The underlying
  * checkboxes are hidden but updated by the user interactions.
+ * 
+ * Released under the GNU General Public License (GPL).
+ * Commercial licenses available.
  */
 
 ;(function($) {
