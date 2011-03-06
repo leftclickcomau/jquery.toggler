@@ -42,26 +42,6 @@
 			// flag used to prevent unnecessary recursion
 			var resetting = false;
 
-			// determine if all the checkboxes are checked or unchecked
-			// depending on the parameter value
-			var areAllCheckboxes = function(checked) {
-				var result = true;
-				$inputElems.each(function() {
-					result = result && (checked === $(this).attr('checked'));
-				});
-				return result;
-			};
-
-			// determine if any checkbox is checked or unchecked
-			// depending on the parameter value
-			var isAnyCheckbox = function(checked) {
-				var result = false;
-				$inputElems.each(function() {
-					result = result || (checked === $(this).attr('checked'));
-				});
-				return result;
-			};
-
 			// initialise visibility of form elements
 			if (settings.hideFormFields) {
 				$inputElems.hide();
@@ -79,7 +59,7 @@
 					var checked = $(this).attr('checked');
 					$parentElem.toggleClass(settings.classNames.selected, checked);
 					if (!resetting) {
-						if (areAllCheckboxes(checked)) {
+						if ($inputElems.filter('[checked='+checked+']').length === $inputElems.length) {
 							resetting = true;
 							$showAllInputElem.attr('checked', true).change();
 							resetting = false;
@@ -93,7 +73,8 @@
 				// checkbox initial selected state; add listener to toggle
 				// checkbox when parent element is clicked
 				$parentElem.toggleClass(settings.classNames.selected, $inputElem.attr('checked')).click(function(evt) {
-					$inputElem.attr('checked', !$inputElem.attr('checked')).change();
+					$inputElem.attr('checked', !$inputElem.attr('checked'));
+					$inputElems.change();
 				});
 			});
 
@@ -101,7 +82,7 @@
 			// the "show all" parent element, and when checking this checkbox,
 			// uncheck all the other checkboxes; also initialise based on
 			// initial state of other checkboxes
-			$showAllInputElem.attr('checked', !isAnyCheckbox(true)).change(function(evt) {
+			$showAllInputElem.attr('checked', ($inputElems.filter('[checked=true]').length === 0)).change(function(evt) {
 				var checked = $(this).attr('checked');
 				$showAllParentElem.toggleClass(settings.classNames.selected, checked);
 				if (checked && !resetting) {
